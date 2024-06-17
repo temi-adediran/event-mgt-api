@@ -13,6 +13,7 @@ class User < ApplicationRecord
 
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, allow_nil: true, length: { minimum: 8 }
+  validates :password, not_pwned: { message: "might easily be guessed" }
 
   normalizes :email, with: -> { _1.strip.downcase }
 
@@ -24,26 +25,3 @@ class User < ApplicationRecord
     sessions.where.not(id: Current.session).delete_all
   end
 end
-
-
-
-
-
-
-
-
-
-
-
-
-# == Schema Information
-#
-# Table name: users
-#
-#  id              :bigint           not null, primary key
-#  email           :string           not null
-#  password_digest :string           not null
-#  verified        :boolean          default(FALSE), not null
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#
