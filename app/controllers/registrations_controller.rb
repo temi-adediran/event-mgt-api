@@ -7,7 +7,8 @@ class RegistrationsController < ApplicationController
     if @user.save
       set_session_in_header(@user)
       send_email_verification
-      render json: @user, status: :created
+      user_json = UserSerializer.new(@user).serializable_hash[:data][:attributes].to_json
+      render json: user_json, status: :created
     else
       render json: @user.errors, status: :unprocessable_entity
     end

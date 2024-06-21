@@ -15,7 +15,8 @@ class SessionsController < ApplicationController
       @session = user.sessions.create!
       response.set_header "X-Session-Token", @session.signed_id
 
-      render json: @session, status: :created
+      user_json = UserSerializer.new(user).serializable_hash[:data][:attributes].to_json
+      render json: user_json, status: :created
     else
       render json: { error: "That email or password is incorrect" }, status: :unauthorized
     end
