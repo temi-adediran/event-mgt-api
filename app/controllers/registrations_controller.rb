@@ -5,6 +5,7 @@ class RegistrationsController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      set_session_in_header(@user)
       send_email_verification
       render json: @user, status: :created
     else

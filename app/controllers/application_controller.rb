@@ -26,4 +26,9 @@ class ApplicationController < ActionController::API
         render json: { error: "You've exceeded the maximum number of attempts" }, status: :too_many_requests
       end
     end
+
+    def set_session_in_header(user)
+      @session = user.sessions.create!
+      response.set_header "X-Session-Token", @session.signed_id
+    end
 end
