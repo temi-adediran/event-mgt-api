@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :authenticate, only: :create
-  before_action :set_session, only: %i[ show destroy ]
+  before_action :set_session, only: %i[ show ]
 
   def index
     render json: Current.user.sessions.order(created_at: :desc)
@@ -12,9 +12,7 @@ class SessionsController < ApplicationController
 
   def create
     if user = User.authenticate_by(email: params[:email], password: params[:password])
-      @session = user.sessions.create!
-      response.set_header "X-Session-Token", @session.signed_id
-
+      set_session_in_header(user)
       user_json = UserSerializer.new(user).serializable_hash[:data][:attributes].to_json
       render json: user_json, status: :created
     else
@@ -23,7 +21,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    @session.destroy
+    Current.session.destroy
+    render json: {message: "Logout successful."}, status: :ok
   end
 
   private

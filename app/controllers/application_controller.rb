@@ -28,7 +28,7 @@ class ApplicationController < ActionController::API
     end
 
     def set_session_in_header(user)
-      @session = user.sessions.create!
-      response.set_header "X-Session-Token", @session.signed_id
+      session = user.sessions.create!
+      response.set_header "X-Session-Token", session.signed_id
     end
 end
