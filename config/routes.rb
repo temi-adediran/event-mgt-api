@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post "/graphql", to: "graphql#execute"
   post "sign_in", to: "sessions#create"
   post "sign_up", to: "registrations#create"
   get "logout", to: "sessions#destroy"
