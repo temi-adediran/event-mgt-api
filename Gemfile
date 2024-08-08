@@ -52,3 +52,5 @@ gem "bcrypt", "~> 3.1.7"
 gem "rack-ratelimit", group: :production
 # Use Pwned to check if a password has been found in any of the huge data breaches [https://github.com/philnash/pwned]
 gem "pwned"
+
+gem "graphql", "~> 2.3"

@@ -96,8 +96,12 @@ GEM
       reline (>= 0.3.8)
     drb (2.2.1)
     erubi (1.13.0)
+    fiber-storage (0.1.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    graphql (2.3.12)
+      base64
+      fiber-storage
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     io-console (0.7.2)
@@ -230,6 +234,7 @@ DEPENDENCIES
   bootsnap
   byebug
   debug
+  graphql (~> 2.3)
   jsonapi-serializer
   kredis
   pg
